@@ -1,20 +1,81 @@
 'use strict';
-let num = 266219;
-// Вывести в консоль произведение цифр этого числа
-const multiplyingDigitsNumber = (str) => {
-  let res = 1;
-  for (let i = 0; i < str.length; i++) {
-    res *= str[i];
-  }
-  return res;
+//через if
+let lang = 'en';
+if (lang === 'ru') {
+  console.log(
+    'Понедельник',
+    'Вторник',
+    'Среда',
+    'Четверг',
+    'Пятница',
+    'Суббота',
+    'Воскресенье'
+  );
+} else if (lang === 'en') {
+  console.log(
+    'Monday',
+    'Tuesday',
+    'Wednesday',
+    'Thursday',
+    'Friday',
+    'Saturday',
+    'Sunday'
+  );
+}
+//через switch-case
+switch (lang) {
+  case 'ru':
+    console.log(
+      'Понедельник',
+      'Вторник',
+      'Среда',
+      'Четверг',
+      'Пятница',
+      'Суббота',
+      'Воскресенье'
+    );
+    break;
+  case 'en':
+    console.log(
+      'Monday',
+      'Tuesday',
+      'Wednesday',
+      'Thursday',
+      'Friday',
+      'Saturday',
+      'Sunday'
+    );
+    break;
+}
+//многомерный массив
+
+let langArray = {
+  ru: [
+    'Понедельник',
+    'Вторник',
+    'Среда',
+    'Четверг',
+    'Пятница',
+    'Суббота',
+    'Воскресенье',
+  ],
+  en: [
+    'Monday',
+    'Tuesday',
+    'Wednesday',
+    'Thursday',
+    'Friday',
+    'Saturday',
+    'Sunday',
+  ],
 };
+console.log(langArray[lang]);
 
-const multiplyingDigits = multiplyingDigitsNumber(num.toString());
-console.log('1: ', multiplyingDigits);
-
-// Полученный результат возвести в степень 3, используя только 1 оператор (Math.pow не подходит)
-const raising = multiplyingDigits ** 3;
-console.log('2: ', raising);
-
-// Вывести на экран первые 2 цифры полученного числа
-console.log('3: ', raising.toString().substr(0, 2));
+let namePerson = 'Максим';
+console.log(
+  namePerson === 'Артем'
+    ? 'директор'
+    : namePerson === 'Максим'
+    ? 'преподаватель'
+    : 'студент'
+);
