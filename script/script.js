@@ -1,18 +1,18 @@
 'use strict';
 //Спрашиваем у пользователя “Ваш месячный доход?” и результат сохраняем в переменную money
-let money = prompt('Ваш месячный доход?', '50000');
-console.log(Number(money));
+let money = +prompt('Ваш месячный доход?', '50000');
 
 //Спросить у пользователя “Перечислите возможные расходы за рассчитываемый период через запятую” сохранить в переменную addExpenses (пример: "Квартплата, проездной, кредит")
 let addExpenses = prompt(
   'Перечислите возможные расходы за рассчитываемый период через запятую',
   'интернет, такси, коммуналка'
 );
-console.log(addExpenses);
+console.log(addExpenses.toLowerCase().split(' '));
+console.log('type addExpenses: ', typeof addExpenses);
 
 //Спросить у пользователя “Есть ли у вас депозит в банке?” и сохранить данные в переменной deposit (булево значение true/false)
 let deposit = confirm('Есть ли у вас депозит в банке?');
-console.log(deposit);
+console.log('type deposit: ', typeof deposit);
 
 /*Спросить у пользователя по 2 раза каждый вопрос и записать ответы в разные переменные 
 “Введите обязательную статью расходов?” (например expenses1, expenses2)
@@ -23,56 +23,73 @@ let expenses1 = prompt(
   'продукты, вода'
 );
 console.log(expenses1);
-let amount1 = prompt('Во сколько это обойдется?', '10000');
+let amount1 = +prompt('Во сколько это обойдется?', '10000');
 let expenses2 = prompt(
   'Введите обязательную статью расходов?',
   'бензин, транспорт'
 );
 console.log(expenses2);
-let amount2 = prompt('Во сколько это обойдется?', '5000');
-
-//Вычислить бюджет на месяц, учитывая обязательные расходы, сохранить в новую переменную budgetMonth и вывести результат в консоль
-let budgetMonth = Number(money) - (Number(amount1) + Number(amount2));
-console.log('Бюджет на месяц: ', budgetMonth);
+let amount2 = +prompt('Во сколько это обойдется?', '5000');
 
 //Какую сумму хотите накопить?
 let mission = 1000000;
 
-//Зная budgetMonth, посчитать за сколько месяцев будет достигнута цель mission, вывести в консоль, округляя в большую сторону (методы объекта Math в помощь)
-console.log(
-  'Цель будет достигнута за:' + Math.ceil(mission / budgetMonth) + 'месяцев'
-);
-
-//Поправить budgetDay учитывая бюджет на месяц, а не месячный доход. Вывести в консоль  округлив в меньшую сторону
-let budgetDay = budgetMonth / 30;
-console.log('Бюджет на день: ', Math.floor(budgetDay));
-
-/*Написать конструкцию условий (расчеты приведены в рублях)	
-Если budgetDay больше 1200, то “У вас высокий уровень дохода”
-Если budgetDay больше 600 и меньше 1200, то сообщение “У вас средний уровень дохода”
-Если budgetDay меньше 600 и больше 0 то в консоль вывести сообщение “К сожалению у вас уровень дохода ниже среднего”
-Если отрицательное значение то вывести “Что то пошло не так”
-Учесть варианты 0, 600 и 1200 (к какому уровню не важно)*/
-if (budgetDay === 1200) {
-  console.log('Нижняя граница высокого уровня доходов');
-} else if (budgetDay === 600) {
-  console.log('Нижняя граница среднего уровня доходов');
-} else if (budgetDay > 1200) {
-  console.log('У вас высокий уровень дохода');
-} else if (budgetDay < 1200 && budgetDay > 600) {
-  console.log('У вас средний уровень дохода');
-} else if (budgetDay < 0) {
-  console.log('Дохода нет');
-} else {
-  console.log('К сожалению у вас уровень дохода ниже среднего');
-}
-
-/*//Дополнительная статья дохода
+//Дополнительная статья дохода
 let income = 'Фриланс';
-console.log(income);
 
 // Период накопления
 let period = 12;
 console.log('Период равен ' + period + ' месяцев');
 console.log('Цель заработать ' + mission + ' рублей');
-*/
+//сумма всех расходов
+let getExpensesMonth = function (amount1, amount2) {
+  return amount1 + amount2;
+};
+console.log('Сумма расходов: ' + getExpensesMonth(amount1, amount2));
+//накопления за месяц
+let getAccumulatedMonth = function (money, getExpensesMonth) {
+  return money - getExpensesMonth;
+};
+console.log(
+  'Разница доходов и расходов: ',
+  getAccumulatedMonth(money, getExpensesMonth(amount1, amount2))
+);
+
+let accumulatedMonth = getAccumulatedMonth(
+  money,
+  getExpensesMonth(amount1, amount2)
+);
+
+//период накопления
+let getTargetMonth = function (mission, accumulatedMonth) {
+  return Math.ceil(mission / accumulatedMonth);
+};
+console.log(
+  'Период накопления в месяцах: ' + getTargetMonth(mission, accumulatedMonth)
+);
+
+let budgetDay = accumulatedMonth / 30;
+console.log('Бюджет на день: ', Math.floor(budgetDay));
+let showTypeOf = function (data) {
+  console.log(data, typeof data);
+};
+showTypeOf(money);
+showTypeOf(income);
+showTypeOf(deposit);
+
+let getStatusIncome = function (budgetDay) {
+  return budgetDay < 0
+    ? 'Пора устроиться на работу'
+    : budgetDay < 600
+    ? 'Низкий уровень дохода'
+    : budgetDay === 600
+    ? 'Выход на средний уровень дохода'
+    : budgetDay < 1200
+    ? 'У вас средний уровень дохода'
+    : budgetDay === 1200
+    ? 'Выход на высокий уровень дохода'
+    : budgetDay === 1200
+    ? 'У вас почти получилось попасть в группу с высокий уровень дохода! Постарайтесь лучше!'
+    : 'У вас высокий уровень дохода';
+};
+console.log('Ваш доход: ', getStatusIncome(budgetDay));
