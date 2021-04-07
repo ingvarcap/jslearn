@@ -1,16 +1,20 @@
-let money = 100000;
-let income = 'Фриланс';
-let addExpenses = 'Интернет, Такси, Коммуналка';
-let deposit = true;
-let mission = 1000000;
-let period = 12;
-console.log(money);
-console.log(income);
-console.log(deposit);
-console.log(addExpenses.length);
-console.log('Период равен ' + period + ' месяцев');
-console.log('Цель заработать git ' + mission + ' рублей');
-console.log(addExpenses.toLowerCase());
-console.log(addExpenses.split(' '));
-let budgetDay = money / 30;
-console.log(budgetDay);
+'use strict';
+let num = 266219;
+// Вывести в консоль произведение цифр этого числа
+const multiplyingDigitsNumber = (str) => {
+  let res = 1;
+  for (let i = 0; i < str.length; i++) {
+    res *= str[i];
+  }
+  return res;
+};
+
+const multiplyingDigits = multiplyingDigitsNumber(num.toString());
+console.log('1: ', multiplyingDigits);
+
+// Полученный результат возвести в степень 3, используя только 1 оператор (Math.pow не подходит)
+const raising = multiplyingDigits ** 3;
+console.log('2: ', raising);
+
+// Вывести на экран первые 2 цифры полученного числа
+console.log('3: ', raising.toString().substr(0, 2));
