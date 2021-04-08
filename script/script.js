@@ -1,54 +1,5 @@
 'use strict';
-//через if
-let lang = 'en';
-if (lang === 'ru') {
-  console.log(
-    'Понедельник',
-    'Вторник',
-    'Среда',
-    'Четверг',
-    'Пятница',
-    'Суббота',
-    'Воскресенье'
-  );
-} else if (lang === 'en') {
-  console.log(
-    'Monday',
-    'Tuesday',
-    'Wednesday',
-    'Thursday',
-    'Friday',
-    'Saturday',
-    'Sunday'
-  );
-}
-//через switch-case
-switch (lang) {
-  case 'ru':
-    console.log(
-      'Понедельник',
-      'Вторник',
-      'Среда',
-      'Четверг',
-      'Пятница',
-      'Суббота',
-      'Воскресенье'
-    );
-    break;
-  case 'en':
-    console.log(
-      'Monday',
-      'Tuesday',
-      'Wednesday',
-      'Thursday',
-      'Friday',
-      'Saturday',
-      'Sunday'
-    );
-    break;
-}
 //многомерный массив
-
 let langArray = {
   ru: [
     'Понедельник',
@@ -69,7 +20,24 @@ let langArray = {
     'Sunday',
   ],
 };
-console.log(langArray[lang]);
+console.log(langArray);
+
+//через if
+let lang = 'en';
+if (lang === 'ru') {
+  console.log(langArray);
+} else if (lang === 'en') {
+  console.log(langArray);
+}
+//через switch-case
+switch (lang) {
+  case 'ru':
+    console.log(langArray);
+    break;
+  case 'en':
+    console.log(langArray);
+    break;
+}
 
 let namePerson = 'Максим';
 console.log(
