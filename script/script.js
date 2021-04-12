@@ -1,102 +1,60 @@
 'use strict';
 
-const isNumber = function (n) {
-  console.log('n: ', n);
-  console.log(parseFloat(n));
-  console.log(isFinite(n));
+const getRandomInt = function (max) {
+  return Math.floor(Math.random() * Math.floor(max));
+};
+
+const isNum = function (n) {
   return !isNaN(parseFloat(n)) && isFinite(n);
 };
 
-let money;
-do {
-  money = prompt('Ваш месячный доход?');
-} while (!isNumber(money));
+/*
+Используйте функции alert, confirm, prompt для общения с пользователем.
+Написать игровой бот.
+"Загадывание случайного числа от 1 до 100"
+Что должна делать программа:
++ спрашивает пользователя: "Угадай число от 1 до 100".
++ если пользовательское число больше, то бот выводит "Загаданное число меньше" 
+    и предлагает ввести новый вариант;
++ если пользовательское число меньше, то бот выводит "Загаданное число больше" 
+    и предлагает ввести новый вариант;
++ если пользователь ввел не число, то выводит сообщение "Введи число!" и предлагает ввести новый вариант;
++ если пользователь нажимает "Отмена", то игра заканчивается.
+Программа должны быть выполнена с помощью рекурсии, без единого цикла.
+Загаданное число должно храниться «в замыкании»
+*/
 
-const mission = 1000000;
-let income = 'Фриланс';
-const period = 12;
-let addExpenses = prompt(
-  'Перечислите возможные расходы за рассчитываемый период через запятую',
-  'интернет, такси, коммуналка'
-);
-console.log(addExpenses.toLowerCase().split(' '));
-console.log('type addExpenses: ', typeof addExpenses);
-
-let deposit = confirm('Есть ли у вас депозит в банке?');
-console.log('type deposit: ', typeof deposit);
-
-let expenses1 = prompt(
-  'Введите обязательную статью расходов?',
-  'продукты, вода'
-);
-console.log(expenses1);
-let amount1 = +prompt('Во сколько это обойдется?', '10000');
-let expenses2 = prompt(
-  'Введите обязательную статью расходов?',
-  'бензин, транспорт'
-);
-console.log(expenses2);
-let amount2 = +prompt('Во сколько это обойдется?', '5000');
-
-//сумма всех расходов
-let expenses = [];
-const getExpensesMonth = function () {
-  let sum = 0;
-  for (let i = 0; i < 4; i++) {
-    expenses[i] = prompt('Введите обязательную статью расходов');
-    sum += (() => {
-      let n = 0;
-      do {
-        n = prompt('Во сколько это обойдется?');
-      } while (!isNumber(n));
-      return +n;
-    })();
-  }
-  return sum;
+const start = function () {
+  let rNumber = getRandomInt(100);
+  // console.log('rNumber: ', rNumber);
+  const game = function () {
+    const num = prompt('"Угадай число от 1 до 100"');
+    if (num === null) {
+      alert("'Игра окончена'");
+      return;
+    }
+    if (isNum(num)) {
+      const realNum = +num;
+      if (realNum > rNumber) {
+        alert("'Загаданное число меньше'");
+        game();
+      } else if (realNum < rNumber) {
+        alert("'Загаданное число больше'");
+        game();
+      } else {
+        if (confirm("'Поздравляю, Вы угадали!!!'")) {
+          start();
+        } else {
+          alert("'Игра окончена'");
+          return;
+        }
+      }
+    } else {
+      alert("'Введи число'");
+      game();
+    }
+  };
+  game();
 };
 
-let expensesAmount = getExpensesMonth();
-
-const getAccumulatedMonth = (moneyMonth, expensesMonth) => {
-  if (!moneyMonth) {
-    moneyMonth = 0;
-  }
-  return moneyMonth - expensesMonth;
-};
-
-const accumulatedMonth = getAccumulatedMonth(money, expensesAmount);
-//период накопления
-let getTargetMonth = function (mission, accumulatedMonth) {
-  return Math.ceil(mission / accumulatedMonth);
-};
-
-const targetMonth = getTargetMonth;
-targetMonth >= 0
-  ? console.log('Цель будет достигнута за:' + targetMonth + 'месяцев')
-  : console.log('Цель не будет достигнута');
-
-const budgetDay = accumulatedMonth / 30;
-console.log('Бюджет на день: ', Math.floor(budgetDay));
-const showTypeOf = function (data) {
-  console.log(data, typeof data);
-};
-showTypeOf(money);
-showTypeOf(income);
-showTypeOf(deposit);
-
-const getStatusIncome = function (budgetDay) {
-  return budgetDay < 0
-    ? 'Пора устроиться на работу'
-    : budgetDay < 600
-    ? 'Низкий уровень дохода'
-    : budgetDay === 600
-    ? 'Выход на средний уровень дохода'
-    : budgetDay < 1200
-    ? 'У вас средний уровень дохода'
-    : budgetDay === 1200
-    ? 'Выход на высокий уровень дохода'
-    : budgetDay === 1200
-    ? 'У вас почти получилось попасть в группу с высокий уровень дохода! Постарайтесь лучше!'
-    : 'У вас высокий уровень дохода';
-};
-console.log('Ваш доход: ', getStatusIncome(budgetDay));
+start();
