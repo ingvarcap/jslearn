@@ -30,25 +30,23 @@ let appData = {
     );
     appData.addExpenses = addExpenses.toLowerCase().split(',');
     appData.deposit = confirm('Есть ли у вас депозит в банке?');
-    for (let i = 0; i < 2; i++) {
-      appData.expenses[
-        prompt('Введите обязательную статью расходов?')
-      ] = (() => {
-        let n = 0;
-        do {
-          n = prompt('Во сколько это обойдется?');
-        } while (!isNumber(n));
-        return +n;
-      })();
-      console.log(appData.expenses);
-    }
+    // Функция считает сумму всех обязательных расходов за месяц
   },
   getExpensesMonth: function () {
-    // Функция считает сумму всех обязательных расходов за месяц
-    appData.expensesMonth = 0;
-    for (let elem in appData.expenses) {
-      appData.expensesMonth += appData.expenses[elem];
+    let sum = 0,
+      question;
+    for (let i = 0; i < 2; i++) {
+      if (i === 0) {
+        appData.addExpenses = prompt('Введите обязательную статью расходов');
+      } else {
+        appData.addExpenses = prompt('Введите обязательную статью расходов');
+      }
+      do {
+        question = prompt('Во сколько это обойдется');
+      } while (!isNumber(sum));
+      sum += +question;
     }
+    return sum;
   },
   getBudget: function () {
     // Функция считает накопления за месяц (Доходы минус расходы)
@@ -86,7 +84,7 @@ appData.getBudget();
 
 const targetMonth = appData.getTargetMonth();
 
-console.log('Расходы за месяц: ', appData.expensesMonth);
+console.log('Расходы за месяц: ', appData.getExpensesMonth);
 console.log(
   targetMonth >= 0
     ? 'Цель будет достигнута за:' + targetMonth + 'месяцев'
