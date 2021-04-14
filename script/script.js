@@ -30,21 +30,19 @@ let appData = {
     );
     appData.addExpenses = addExpenses.toLowerCase().split(',');
     appData.deposit = confirm('Есть ли у вас депозит в банке?');
-    // Функция считает сумму всех обязательных расходов за месяц
   },
+  // Функция возвращает сумму всех обязательных расходов за месяц
   getExpensesMonth: function () {
-    let sum = 0,
-      question;
+    const question = prompt('Введите обязательную статью расходов'),
+      exp = +prompt('Во сколько это обойдётся?');
+
+    appData.key[question] = exp;
     for (let i = 0; i < 2; i++) {
-      if (i === 0) {
-        appData.addExpenses = prompt('Введите обязательную статью расходов');
-      } else {
-        appData.addExpenses = prompt('Введите обязательную статью расходов');
-      }
+      appData.expenses[i] = prompt('Введите обязательную статью расходов');
       do {
-        question = prompt('Во сколько это обойдется');
-      } while (!isNumber(sum));
-      sum += +question;
+        appData.expenses[i] = +prompt('Во сколько это обойдётся?');
+      } while (!isNumber(appData.expenses[i]));
+      sum += +appData.expenses[i];
     }
     return sum;
   },
@@ -84,7 +82,7 @@ appData.getBudget();
 
 const targetMonth = appData.getTargetMonth();
 
-console.log('Расходы за месяц: ', appData.getExpensesMonth);
+console.log('Расходы за месяц: ', appData.expenses);
 console.log(
   targetMonth >= 0
     ? 'Цель будет достигнута за:' + targetMonth + 'месяцев'
