@@ -31,12 +31,8 @@ let appData = {
     appData.addExpenses = addExpenses.toLowerCase().split(',');
     appData.deposit = confirm('Есть ли у вас депозит в банке?');
   },
-  // Функция возвращает сумму всех обязательных расходов за месяц
   getExpensesMonth: function () {
-    const question = prompt('Введите обязательную статью расходов'),
-      exp = +prompt('Во сколько это обойдётся?');
-
-    appData.key[question] = exp;
+    // Функция возвращает сумму всех обязательных расходов за месяц
     for (let i = 0; i < 2; i++) {
       appData.expenses[i] = prompt('Введите обязательную статью расходов');
       do {
