@@ -39,7 +39,8 @@ let appData = {
   },
   getExpensesMonth: function () {
     // Функция возвращает сумму всех обязательных расходов за месяц
-    for (let key in appData) {
+    appData.expensesMonth = 0;
+    for (let key in appData.expenses) {
       appData.expensesMonth += appData.expenses[key];
     }
   },
