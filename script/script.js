@@ -24,6 +24,15 @@ let appData = {
   budgetMonth: 0,
   expensesMonth: 0,
   asking: function () {
+    if (true) {
+      let itemIncome = prompt(
+        'Какой у вас дополнительный заработок?',
+        'Фриланс'
+      );
+      let cashIncome = prompt('Сколько в месяц зарабатываете на этом?', 10000);
+      appData.income[itemIncome] = cashIncome;
+    }
+
     let addExpenses = prompt(
       'Перечислите возможные расходы за рассчитываемый период через запятую',
       'интернет, такси, коммуналка'
